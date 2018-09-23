@@ -6,10 +6,11 @@
 using namespace std;
 
 int width = 30;
-int hight = 15;
+int height = 15;
 
 int snakeX, snakeY;
 int fruitX = 10, fruitY = 10;
+int tailX[30], tailY[15];
 int score = 0;
 
 int f, b, r, l;
@@ -44,30 +45,40 @@ void display(void){
 	system("CLS");
 	cout << "        Snake Game" << endl;
 	
-	for(int i = 0; i < hight; i++){
+	for(int i = 0; i < height; i++){
 		
 		for(int j = 0; j < width; j++){
 			
-			if( (i == 0 || i == hight - 1 ) || (j == 0 || j == width - 1)){
+			if( (i == 0 || i == height - 1 ) || (j == 0 || j == width - 1)){
 				cout << "#";
+			}
+			else if(i == snakeY && j == snakeX){	
+				cout << "Q";
+				
+				
+			}
+			else if(i == fruitY && j == fruitX){
+				cout << "@";
 			}
 			else{
 				
-				
-				if(i == snakeY && j == snakeX){
+				bool print = false;
+				for(int k = 0; k < score; k++){
 					
-					cout << "o";
+					if(tailX[k] == j && tailY[k] == i){
+						cout << "o";
+						print = true;
+						
+					}
 				}
-				else if(i == fruitY && j == fruitX){
-					cout << "@";
+				if(!print){
+					cout << " ";
 				}
-				else{
-					
-						cout << " ";
-					
-				}
-				
+						
 			}
+				
+				
+				
 		}
 		
 		cout << endl;
@@ -116,18 +127,35 @@ void input(void){
 }
 
 void logic(){
+	int prevX, prevY,prev2X, prev2Y;
+	
+	prevX = tailX[0];
+	prevY = tailY[0];
+	tailX[0] = snakeX;
+	tailY[0] = snakeY;
+	
+	for(int i = 1; i < score; i++){
+		prev2X = tailX[i];
+		prev2Y = tailY[i];
+		tailX[i] = prevX;
+		tailY[i] = prevY;
+		prevX = prev2X;
+		prevY = prev2Y;
+		
+	}
+	
 	if(fruitX == snakeX && fruitY == snakeY){
 		score++;
 		
 		fruitX = rand() % width - 2;
-		fruitY = rand() % hight + 2;
+		fruitY = rand() % height + 2;
 	}
 	
 	if(snakeY == 1 && f == 1){
 		
-		snakeY = hight - 2;
+		snakeY = height - 2;
 	}
-	else if(snakeY == hight - 2 && b == 1){
+	else if(snakeY == height - 2 && b == 1){
 		snakeY = 1;
 	}
 	else if(snakeX == 1 && l == 1){
@@ -141,7 +169,7 @@ void logic(){
 		snakeY--;
 	}
 	else if(b == 1){
-		snakeY++;cd
+		snakeY++;
 	}
 	else if(r == 1){
 		snakeX++;
