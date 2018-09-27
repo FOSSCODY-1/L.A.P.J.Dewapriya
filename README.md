@@ -1,2 +1,2 @@
 # L.A.P.J.Dewapriya
-[Product Name]
+[The Snake Game]
