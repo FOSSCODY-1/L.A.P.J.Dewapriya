@@ -6,8 +6,8 @@
 using namespace std;
 
 
-int width = 30; /*To Set the Width of the Gamming Area*/
-int height = 15;  /*To Set the Height of the Gamming Area*/
+int width = 36; /*To Set the Width of the Gamming Area*/
+int height = 18;  /*To Set the Height of the Gamming Area*/
 
 int snakeX, snakeY; /*X and Y cordinates of Snake`s Head */
 int fruitX = 10, fruitY = 10; /*X and Y cordinates of fruit or the food */
@@ -161,7 +161,28 @@ void input(void){
 				  b = 0;
 				  r = 0;
 				  l = 1;
-				  break;		  
+				  break;
+		case 'W': f = 1;
+				  b = 0;
+				  r = 0;
+				  l = 0;
+				  break;
+		case 'A': f = 0;
+				  b = 0;
+				  r = 0;
+				  l = 1;
+				  break;
+		case 'D': f = 0;
+				  b = 0;
+				  r = 1;
+				  l = 0;
+				  break;
+		case 'S': f = 0;
+				  b = 1;
+				  r = 0;
+				  l = 0;
+				  break;
+				  		  	  
 	}
 		
 	}
@@ -246,14 +267,14 @@ void goAnimation(void){
 	system("CLS");
 	cout << "**********************Welcome to The Snake Game***************************" << endl << endl;
 	
-	cout << "\nOops! You have eaten yourself\n";
+	cout << "\nOops! You have eaten yourself!!!!!!!\n";
 	
 	for(int i = 0; i < height; i++){
 		
 			for(int j = 0; j < width; j++){
 			cout << "#";
 			
-			Sleep(20);
+			Sleep(10);
 		}
 		cout << "\n";
 		
