@@ -253,6 +253,7 @@ void goAnimation(void){
 		cout << "\n";
 		
 	}
+	cout <<"\n\n" << name << "`s Highest Score is " << score * 5 << "\n\n";
 	cout << "\nTry Again\n";
 	Sleep(2000);	
 }
