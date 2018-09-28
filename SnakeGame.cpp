@@ -5,13 +5,14 @@
 
 using namespace std;
 
-int width = 30;
-int height = 15;
 
-int snakeX, snakeY;
-int fruitX = 10, fruitY = 10;
-int tailX[30], tailY[15];
-int score = 0;
+int width = 30; /*To Set the Width of the Gamming Area*/
+int height = 15;  /*To Set the Height of the Gamming Area*/
+
+int snakeX, snakeY; /*X and Y cordinates of Snake`s Head */
+int fruitX = 10, fruitY = 10; /*X and Y cordinates of fruit or the food */
+int tailX[30], tailY[15]; /*X and Y cordinates of Snake`s Tail */
+int score = 0;  /*Player`s Score*/
 
 int f, b, r, l;//Directions
 bool stop = true;
@@ -19,29 +20,20 @@ bool gameOver = false;
 bool loop = true;
 
 char name[50];//Player`s name
-int speed = 100;
+int speed = 100;  //To Set the Speed of the Snake`s Movement
 
 
-void display(void);
-void input(void);
-void logic(void);
-void setup(void);
+void display(void);//Draw the Graphical interface of the game
+void input(void);  //To Take the User Input; Key Board Input
+void logic(void);  //Check the Logical Requirements of the Game and Apply Logics through decisions
+void setup(void); // To Inialize the Game
 
 void goAnimation(void);
 
 int main(){
-	
-	//char c = getch();
-	
+
 	char opt;
-	
-	
-	
-	
-	
-	
-	
-	
+
 	while(loop){
 		
 		
@@ -54,13 +46,15 @@ int main(){
 	cin >> name;
 		
 		while(!gameOver){
-		display();
-		input();
-		logic();
-		Sleep(speed);
+			
+			display();
+			input();
+			logic();
+			Sleep(speed);
+			
 	}
 	
-	goAnimation();
+	goAnimation(); // To Display a Simple Animation After Game is Over
 	
 	cout << "\n\n!!!!!!!!!!Game Over!!!!!!!!";
 	system("CLS");
@@ -96,19 +90,21 @@ void display(void){
 		for(int j = 0; j < width; j++){
 			
 			if( (i == 0 || i == height - 1 ) || (j == 0 || j == width - 1)){
-				cout << "#";
+				cout << "#";// Draw the Boundaries
 			}
 			else if(i == snakeY && j == snakeX){	
-				cout << "Q";
+				cout << "Q";//Draw the Snakes`s Head
 				
 				
 			}
 			else if(i == fruitY && j == fruitX){
-				cout << "@";
+				cout << "@";// Draw the Fruit
 			}
 			else{
 				
 				bool print = false;
+				
+				/*Drawing the Tail*/
 				for(int k = 0; k < score; k++){
 					
 					if(tailX[k] == j && tailY[k] == i){
@@ -133,6 +129,8 @@ void display(void){
 	cout << endl;
 	cout << name <<  "`s Score : " << score * 5;
 	cout << endl;
+	
+	/*To Debugging Purposes*/
 //	cout << "fx" << fruitX << " fy" << fruitY << endl;
 //	cout << "sx" << snakeX << " sy" << snakeY;
 	
@@ -173,11 +171,15 @@ void input(void){
 }
 
 void logic(){
+	
+	/*To Check wether Snake has eaten itself*/
 	for(int k = 0; k < score; k++){
 		if(tailX[k] == snakeX && tailY[k] == snakeY){
 			gameOver = true;
 		}
 	}
+	
+	/*Apply the logic to build the Tail According to the Score*/
 	int prevX, prevY,prev2X, prev2Y;
 	
 	prevX = tailX[0];
@@ -195,14 +197,17 @@ void logic(){
 		
 	}
 	
+	/*To Check Wether Snake has eaten the fruit/food*/
 	if(fruitX == snakeX && fruitY == snakeY){
-		score++;
-		speed--;
+		score++;//Each time Snake eats a fruit Score is Incremented
+		speed--;//Each time Snake eats a fruit Speed is Incremented
 		
+		/*Generate the X and Y Cordinates of the Fruit Randomly*/
 		fruitX = rand() % (width - 2) + 1;
 		fruitY = rand() % (height - 2) + 1;
 	}
 	
+	/*To check wether Snake has arrived at boundaries and Determine What to do accordingly*/
 	if(snakeY == 1 && f == 1){
 		
 		snakeY = height - 2;
@@ -218,16 +223,16 @@ void logic(){
 	}
 	else{
 		if(f == 1){
-		snakeY--;
+		snakeY--;//Set the Backward Motion of Snake
 	}
 	else if(b == 1){
-		snakeY++;
+		snakeY++;//Set the Forward Motion of Snake
 	}
 	else if(r == 1){
-		snakeX++;
+		snakeX++;//Set the leftward Motion of Snake
 	}
 	else if(l == 1){
-		snakeX--;
+		snakeX--;//Set the Rightward Motion of Snake
 	}
 	}
 	
